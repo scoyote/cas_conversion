@@ -162,12 +162,22 @@ run;
 
 
 /********************** Query 4 **********************/
-/* %let timer_a = %sysfunc(datetime()); */
-/* proc sql; */
-/* create table pp4 as select distinct sum(SBMD_CG_AT) as billed, sum(EACL_PRV_ALCRG_AT) as allowed from casuser.paclaims c left join casuser.pamems m on c.EACM_WHS_UNQ_MBR_ID = m.EACM_WHS_UNQ_MBR_ID and c.ICRD_DT between m.EFF_COV_DT and m.TERM_COV_DT */
-/* and c.GP_ID = m.GP_ID */
-/* where c.EACM_WHS_UNQ_MBR_ID in (select EACM_WHS_UNQ_MBR_ID from casuser.oldmems) and c.CL_N <> '227852' and c.EACM_WHS_UNQ_MBR_ID not in (select EACM_WHS_UNQ_MBR_ID from casuser.cobmemsall); */
-/* quit; */
+%let timer_a = %sysfunc(datetime());
+proc sql;
+create table pp4 as 
+	select distinct 
+		 sum(SBMD_CG_AT) as billed
+		,sum(EACL_PRV_ALCRG_AT) as allowed 
+	from casuser.paclaims c 
+	left join casuser.pamems m on c.EACM_WHS_UNQ_MBR_ID = m.EACM_WHS_UNQ_MBR_ID 
+		and c.ICRD_DT between m.EFF_COV_DT and m.TERM_COV_DT and c.GP_ID = m.GP_ID
+	where c.EACM_WHS_UNQ_MBR_ID in (select EACM_WHS_UNQ_MBR_ID from casuser.oldmems) 
+	and c.CL_N <> '227852' 
+	and c.EACM_WHS_UNQ_MBR_ID not in (select EACM_WHS_UNQ_MBR_ID from casuser.cobmemsall);
+quit;
+
+
+
 /* create table pp5 as select distinct sum(SBMD_CG_AT) as billed, sum(EACL_PRV_ALCRG_AT) as allowed from work.paclaims c */
 /* left join work.pamems m on c.EACM_WHS_UNQ_MBR_ID = m.EACM_WHS_UNQ_MBR_ID and c.ICRD_DT between m.EFF_COV_DT and m.TERM_COV_DT */
 /* and c.GP_ID = m.GP_ID */
