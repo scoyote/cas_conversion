@@ -1,6 +1,17 @@
 options fullstimer;
-/*  */
+libname mysql_EM 
+	mysql 
+	user='root' 
+	password=example
+	database=employees
+	server='sas-mysql' 
+	port=3306;
 
+libname pg_dvd postgres 
+	server='sas-postgres' port=5432 
+   	user='postgres' password='Orion123'
+   	database=dvdrental 		;
+   	
 cas ses_main ;
 caslib _all_ assign;
 
